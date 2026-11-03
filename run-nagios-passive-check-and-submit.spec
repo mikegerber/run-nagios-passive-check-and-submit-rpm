@@ -1,12 +1,12 @@
 %define name run-nagios-passive-check-and-submit
 %define version 0.1.5
-%define release 3%{?dist}
+%define release 4%{?dist}
 
 Summary: Run a Nagios passive check and submit its result via the Nagios CGI
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: https://github.com/neingeist/%{name}/archive/%{version}.tar.gz
+Source0: https://github.com/neingeist/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 License: UNKNOWN
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -39,3 +39,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
 %defattr(-,root,root)
+
+%changelog
+* Tue Nov 03 2026 Mike Gerber <mike@mike-gerber.de> - 0.1.5-4
+- Rebuild for Fedora 45
+- Change Source0 to provide a filename with %name
