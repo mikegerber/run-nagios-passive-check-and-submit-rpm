@@ -1,7 +1,7 @@
 name: Build RPMs
 
 env:
-  PACKAGE_NAME: run-nagios-passive-checks-and-submit
+  PACKAGE_NAME: run-nagios-passive-check-and-submit
 
 on:
   push:
