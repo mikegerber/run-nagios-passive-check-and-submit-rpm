@@ -1,46 +1,45 @@
-%define name run-nagios-passive-check-and-submit
-%define version 0.1.5
-%define release 4%{?dist}
 
-Summary: Run a Nagios passive check and submit its result via the Nagios CGI
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: https://github.com/neingeist/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-License: UNKNOWN
-Group: Development/Libraries
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Prefix: %{_prefix}
-BuildArch: noarch
-Vendor: Mike Gerber <mike@sprachgewalt.de>
+%if 0%{?rhel} == 8
+%global python3_pkgversion 3.11
+%endif
 
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-Requires: %{py3_dist beautifulsoup4 lxml requests termcolor}
-Requires: python3-pyyaml
+Name:           run-nagios-passive-check-and-submit
+Version:        0.1.6
+Release:        1%{?dist}
+Summary:        Run a Nagios passive check and submit its result via the Nagios CGI
+License:        UNKNOWN
+URL:            https://github.com/mikegerber/%{name}
+Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+BuildArch:      noarch
+
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-wheel
+BuildRequires:  python%{python3_pkgversion}-pip
 
 %description
 Run a Nagios passive check and submit its result via the Nagios CGI.
 
 %prep
-%setup -n %{name}-%{version} -n %{name}-%{version}
+%autosetup
 
 %build
-%{python3} setup.py build
+%pyproject_wheel
 
 %install
-%{python3} setup.py install --single-version-externally-managed -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+%pyproject_install
+%pyproject_save_files run_nagios
 
-# Fedora does not like an unversioned python shebang:
-sed -i 's%#!/usr/bin/python$%#!%{python3}%' $RPM_BUILD_ROOT/%{_bindir}/run-nagios-passive-check-and-submit
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%files -f INSTALLED_FILES
-%defattr(-,root,root)
+%files -f %{pyproject_files}
+%{_bindir}/run-nagios-passive-check-and-submit
 
 %changelog
+* Thu Nov 05 2026 Mike Gerber <mike@mike-gerber.de> - 0.1.6-1
+- Update to 0.1.6
+- Switch to pyproject.toml packaging
+
 * Tue Nov 03 2026 Mike Gerber <mike@mike-gerber.de> - 0.1.5-4
 - Rebuild for Fedora 45
 - Change Source0 to provide a filename with %name
