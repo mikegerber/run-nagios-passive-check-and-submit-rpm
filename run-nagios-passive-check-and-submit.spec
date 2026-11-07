@@ -5,7 +5,7 @@
 
 Name:           run-nagios-passive-check-and-submit
 Version:        0.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run a Nagios passive check and submit its result via the Nagios CGI
 License:        UNKNOWN
 URL:            https://github.com/mikegerber/%{name}
@@ -36,6 +36,9 @@ Run a Nagios passive check and submit its result via the Nagios CGI.
 %{_bindir}/run-nagios-passive-check-and-submit
 
 %changelog
+* Sat Nov 07 2026 Mike Gerber <mike@mike-gerber.de> - 0.1.6-2
+- Rebuild for Python 3.12 on Rocky 8+9
+
 * Thu Nov 05 2026 Mike Gerber <mike@mike-gerber.de> - 0.1.6-1
 - Update to 0.1.6
 - Switch to pyproject.toml packaging
