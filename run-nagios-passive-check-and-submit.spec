@@ -1,6 +1,6 @@
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
-%global python3_pkgversion 3.11
+%global python3_pkgversion 3.12
 %endif
 
 Name:           run-nagios-passive-check-and-submit
