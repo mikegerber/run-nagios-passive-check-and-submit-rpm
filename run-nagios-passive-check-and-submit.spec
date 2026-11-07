@@ -1,5 +1,5 @@
 
-%if 0%{?rhel} == 8
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %global python3_pkgversion 3.11
 %endif
 
